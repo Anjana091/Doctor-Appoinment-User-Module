@@ -1,66 +1,119 @@
 .App {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-width: 100vw;
-    min-height: 100vh;
-    background:linear-gradient(rgb(166, 159, 255), rgb(214, 214, 214));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 100vw;
+  min-height: 100vh;
+  background: linear-gradient(rgb(166, 159, 255), rgb(214, 214, 214));
+}
+
+.loginContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: auto;
+  max-width: 90vw;
+  height: auto;
+  background-color: rgb(255, 255, 255);
+  border-radius: 25px;
+  padding: 2em;
+}
+
+.input-container {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 10px;
+}
+
+.input-container input {
+  height: 1.5em;
+  width: 15em;
+  max-width: 100%;
+  border-radius: 15px;
+  border-width: 15px;
+  border: none;
+  box-shadow: 0 0 6px rgb(166, 159, 255);
+  outline: none;
+  padding: 10px;
+  font-size: 20px;
+}
+
+input:focus {
+  box-shadow: 0 1px 1px rgba(229, 103, 23, 0.075) inset, 0 0 16px rgb(125, 115, 255);
+  outline: none;
+}
+
+a {
+  color: rgb(0, 68, 255);
+  font-weight: 500;
+  margin: 5px;
+  cursor: pointer;
+  align-self: baseline;
+}
+
+.forgot-password-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.signup-container,
+.signin-container {
+  width: 100%;
+  margin-top: 20px;
+}
+
+.signupBut,
+.loginBut {
+  height: 4em;
+  width: 100%;
+  max-width: 100%;
+  margin-top: 10px;
+  border-radius: 15px;
+  background: linear-gradient(rgb(124, 114, 255), rgb(255, 116, 116));
+  border: none;
+  transition: all 0.2s ease-in-out;
+}
+
+.signupBut:hover,
+.loginBut:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 12px rgb(199, 199, 199);
+}
+
+.signupBut p,
+.loginBut p {
+  color: white;
+  font-size: 20px;
+  margin-top: 13px;
+}
+
+@media (max-width: 600px) {
+  .input-container input {
+    width: 100%;
   }
   
-  .loginContainer{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 25em;
-    height: 80vh;
-    background-color: rgb(255, 255, 255);
-    border-radius: 25px;
-  }
-  .input-container {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    margin: 10px;
-  }
-  .input-container input{
-    height: 1.5em;
-    width: 15em;
-    border-radius: 15px;
-    border-width: 15px;
-    border:white;
-    box-shadow: 0 0 6px rgb(166, 159, 255);
-    outline: none;
-    padding:10px;
-    font-size: 20px;
-  }
-  input:focus{   
-    box-shadow: 0 1px 1px rgba(229, 103, 23, 0.075) inset, 0 0 16px rgb(125, 115, 255);
-    outline: 0 none;
-  }
-  a{
-    color: rgb(0, 68, 255);
-    font-weight: 500;
-    margin: 5px;
-    cursor: pointer;
-    align-self: baseline;
-    margin-left: 40px;
-  }
+  .signupBut,
   .loginBut {
-    height: 4em;
-    width: 24em;
-    margin: 10px;
-    margin-top: 35px;
-    border-radius: 15px;
-    background:linear-gradient(rgb(124, 114, 255), rgb(255, 116, 116));
-    border: none;
-    transition: all .2s ease-in-out;
+    width: 100%;
   }
-  .loginBut:hover{
-    transform: scale(1.1);
-    box-shadow: 0 0 12px rgb(199, 199, 199);
-  }
-  .loginBut p{
-    color:white;
-    font-size: 20px;
-    margin-top: 13px;
-  }
+}
+
+.loginContainer form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: auto;
+  max-width: 90vw;
+  height: auto;
+  background-color: rgb(255, 255, 255);
+  border-radius: 25px;
+  padding: 2em;
+}
+
+.loginContainer h1 {
+  margin-bottom: 1em;
+}
