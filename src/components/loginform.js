@@ -38,7 +38,7 @@ function LoginForm() {
   };
 
   return (
-    <div className="App">
+    <div className="loginPage">
       <div className="loginContainer">
         <h1>{isSignUp ? "Create an Account" : "Welcome Back!"}</h1>
 
