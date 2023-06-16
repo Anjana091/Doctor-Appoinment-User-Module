@@ -1,125 +1,83 @@
 import React, { useState } from "react";
 import "./loginform.css";
 
-function LoginForm() {
-  const [isSignUp, setIsSignUp] = useState(false);
+function LoginForm(error) {
+  const [mobileNo, setMobileNo] = useState("");
   const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
+  const [loginSuccess, setLoginSuccess] = useState(false);
 
-  const handleSignUpClick = () => {
-    setIsSignUp(true);
-  };
-
-  const handleSignInClick = () => {
-    setIsSignUp(false);
-  };
-
-  const handleFormSubmit = (e) => {
+  const submitHandler = (e) => {
     e.preventDefault();
-    // Handle form submission logic
-    if (isSignUp) {
-      // Additional validation for signup form
-      if (password !== confirmPassword) {
-        alert("Password and confirm password do not match");
-        return;
-      }
-      // Continue with signup logic
-    } else {
-      // Continue with login logic
-    }
+
+    console.log(mobileNo, password);
+    fetch("http://localhost:3001/patient/login", {
+      method: "POST",
+      crossDomain: true,
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        "Access-Control-Allow-Origin": "*",
+      },
+      body: JSON.stringify({
+        mobileNo,
+        password,
+      }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data, "userRegister");
+        if (data.message === "Admin successfully registered") {
+          setLoginSuccess(true);
+          window.localStorage.setItem("token", data.data.token);
+          window.localStorage.setItem("loggedIn", true);
+          setTimeout(() => {
+            window.location.href = "./home";
+          }, 150);
+        }
+      });
   };
 
-  const handlePasswordChange = (e) => {
-    setPassword(e.target.value);
-  };
 
-  const handleConfirmPasswordChange = (e) => {
-    setConfirmPassword(e.target.value);
-  };
 
   return (
     <div className="loginPage">
       <div className="loginContainer">
-        <h1>{isSignUp ? "Create an Account" : "Welcome Back!"}</h1>
+        <h1>"Welcome Back!"</h1>
 
-        <form onSubmit={handleFormSubmit}>
+        <form onSubmit={submitHandler}>
           <div className="input-container">
-            <label>Username</label>
-            <input type="text" name="uname" required />
-          </div>
-
-          {isSignUp && (
-            <>
-              <div className="input-container">
-                <label>Full Name</label>
-                <input type="text" name="fullName" required />
-              </div>
-
-              <div className="input-container">
-                <label>Phone Number</label>
-                <input type="tel" name="phoneNumber" required />
-              </div>
-
-              <div className="input-container">
-                <label>Password</label>
-                <input
-                  type="password"
-                  name="password"
-                  value={password}
-                  onChange={handlePasswordChange}
-                  required
-                />
-              </div>
-
-              <div className="input-container">
-                <label>Confirm Password</label>
-                <input
-                  type="password"
-                  name="confirmPassword"
-                  value={confirmPassword}
-                  onChange={handleConfirmPasswordChange}
-                  required
-                />
-              </div>
-            </>
-          )}
-
-          {!isSignUp && (
+            <label>Mobile Number</label>
+            <input 
+            type="number" 
+            name="mobileNo" 
+            onChange={(e) => setMobileNo(e.target.value)}
+            required />
+          </div>  
             <div className="input-container">
               <label>Password</label>
-              <input type="password" name="pass" required />
+              <input 
+              type="password" 
+              name="pass" 
+              required 
+              onChange={(e) => setPassword(e.target.value)}
+              />
             </div>
-          )}
-
-          {isSignUp ? (
-            <div className="signup-container">
-              <button className="signupBut" type="submit">
-                <p>Sign Up</p>
-              </button>
-            </div>
-          ) : (
             <div className="signin-container">
               <button className="loginBut" type="submit">
-                <p>Login</p>
+                Login
               </button>
             </div>
-          )}
-
+            {loginSuccess && (
+        <div className="success">Login successful!</div>
+      )}
           <div className="forgot-password-container">
-            {isSignUp ? (
               <>
-                <a href="#" onClick={handleSignInClick}>
-                  Already have an account? Sign in
-                </a>
-              </>
-            ) : (
-              <>
-                <a href="#">Forgot password?</a>
-                <a href="#" onClick={handleSignUpClick}>
+                <a className="login-a" href="#">Forgot password?</a>
+                <a className="login-a" href="/signUp" >
                   Create a new account
                 </a>
               </>
-            )}
+        
           </div>
         </form>
       </div>

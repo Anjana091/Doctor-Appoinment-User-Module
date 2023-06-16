@@ -28,8 +28,8 @@
 }
 
 .input-container input {
-  height: 1.5em;
-  width: 15em;
+  height: 1.2em;
+  width: 13em;
   max-width: 100%;
   border-radius: 15px;
   border-width: 15px;
@@ -45,12 +45,14 @@ input:focus {
   outline: none;
 }
 
-a {
+.login-a {
   color: rgb(0, 68, 255);
   font-weight: 500;
   margin: 5px;
   cursor: pointer;
   align-self: baseline;
+  text-decoration: none;
+  
 }
 
 .forgot-password-container {
