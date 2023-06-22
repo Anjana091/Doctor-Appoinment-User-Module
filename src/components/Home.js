@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import  { useEffect } from "react";
-
+import Navbar from "./NavBar";
 
 
 export default function Home() {
@@ -15,7 +15,8 @@ export default function Home() {
 
 
   return (
-    <div className="container">
+    <div className="container"> 
+      <Navbar />
       <div className="background-wrapper"></div>
       <div className="home">
       <h1>Home page</h1>

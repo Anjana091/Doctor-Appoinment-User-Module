@@ -8,6 +8,8 @@ import {
   Box,
 } from "@mui/material";
 import axios from "axios";
+import Navbar from "./NavBar";
+
 
 const DoctorCard = () => {
   const [doctorData, setDoctorData] = useState([]);
@@ -26,6 +28,8 @@ const DoctorCard = () => {
   }, []);
 
   return (
+    <div>
+    <Navbar />
     <div
       style={{
         display: "flex",
@@ -66,6 +70,7 @@ const DoctorCard = () => {
           </CardActions>
         </Card>
       ))}
+    </div>
     </div>
   );
 };
