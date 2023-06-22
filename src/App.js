@@ -4,6 +4,7 @@ import DoctorCard from "./components/DoctorCard";
 import LoginForm from "./components/loginform";
 import SignUpForm from "./components/signUpform";
 import Home from "./components/Home";
+import BookingPage from "./components/BookingPage";
 
 function App() {
 
@@ -16,6 +17,7 @@ function App() {
           <Route path="/signUp" element={<SignUpForm />} />
           <Route path="/home" element={<Home />} />
           <Route path="/doctors" element={<DoctorCard />} />
+          <Route path="/doctors/book-appoinment/:doctorNo" element={<BookingPage />} />
         </Routes>
       </div>
     </Router>
