@@ -10,6 +10,7 @@ import {
 import axios from "axios";
 import Navbar from "./NavBar";
 import { useNavigate } from "react-router-dom";
+import Footer from "./Footer";
 
 
 const DoctorCard = () => {
@@ -37,6 +38,8 @@ const DoctorCard = () => {
           display: "flex",
           flexWrap: "wrap",
           justifyContent: "center",
+          minHeight: "100vh"
+        
         }}
       >
         {doctorData.map((doctor) => (
@@ -77,6 +80,7 @@ const DoctorCard = () => {
           </Card>
         ))}
       </div>
+      <Footer />
     </div>
   );
 };
