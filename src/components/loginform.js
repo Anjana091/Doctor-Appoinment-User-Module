@@ -30,6 +30,7 @@ function LoginForm(error) {
         console.log(data, "userRegister");
         if (data.message === "Admin successfully registered") {
           setLoginSuccess(true);
+          window.localStorage.setItem("PatientNo", data.data.PatientNo);
           window.localStorage.setItem("token", data.data.token);
           window.localStorage.setItem("loggedIn", true);
           setTimeout(() => {

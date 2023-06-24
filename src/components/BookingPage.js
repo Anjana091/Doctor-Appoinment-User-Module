@@ -6,23 +6,37 @@ import { DatePicker } from "antd";
 import moment from "moment";
 import Footer from "./Footer"
 
+
 const DoctorCard = () => {
+
+  const PatientNo = localStorage.getItem("PatientNo")
+  const isloggedIn = localStorage.getItem("loggedIn");
+  const [patient, setPatientData] = useState(null);
   const params = useParams();
   const [doctor, setDoctorData] = useState(null);
-  const [date,setDate] = useState()
-  const [isAvailable,setIsAvailable]=useState()
+  const [date, setDate] = useState(new Date())
+  const [isAvailable, setIsAvailable] = useState()
 
-const handleBooking =async() =>{
-  try {
-    const res =axios.post('http://localhost:3001/patient/book-appointment',
-    {
-      doctorNo:params.doctorNo
-    })
-  } catch (error) {
-    console.log(error)
+
+  const handleBooking = async (e) => {
+    e.preventDefault();
+    try {
+
+      const res = axios.post('http://localhost:3001/patient/book-appointment',
+        {
+          PatientNo: patient.PatientNo,
+          doctorNo: params.doctorNo,
+          doctorInfo: doctor.fullname,
+          PatientInfo: patient.fullname,
+          date: date
+        })
+      alert("successfully booked")
+      window.location.reload(); // Refresh the page
+    } catch (error) {
+      console.log(error)
+    }
   }
-}
-  
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -31,7 +45,7 @@ const handleBooking =async() =>{
         const response = await axios.post(
           'http://localhost:3001/doctor/getDoctorById',
           {
-            doctorNo :params.doctorNo
+            doctorNo: params.doctorNo
           }
         );
 
@@ -45,28 +59,62 @@ const handleBooking =async() =>{
     fetchData();
   }, [params.doctorNo]);
 
-  console.log("Rendered component:", doctor);
+  useEffect(() => {
+    const PatientNo = localStorage.getItem("PatientNo")
+    const fetchData = async () => {
+      try {
+        const response = await axios.post(
+          'http://localhost:3001/patient/getPatientById',
+          {
+            PatientNo: PatientNo
+          }
+        );
+        console.log("API response:", response.data);
+        setPatientData(response.data.data.patient);
+      } catch (error) {
+        console.log("Error:", error);
+      }
+    };
+
+    fetchData();
+  }, [PatientNo]);
 
   return (
     <div>
       <Navbar />
-      <div  style={{
-          minHeight: "100vh"
-        
-        }}>
+      <div style={{
+        minHeight: "100vh"
+
+      }}>
         <h3>hi</h3>
         {doctor ? (
           <div>
             <h3>Doctor Name: {doctor.fullname}</h3>
+
             {/* Display other doctor information as needed */}
           </div>
         ) : (
           <h3>Loading doctor data...</h3>
         )}
         <h1>book now</h1>
-        <DatePicker format="DD-MM-YYYY" onChange={(value) => moment(value).format('DD-MM-YYYY')}/>
-        <button className="btn btn-primary">Check Availability</button>
-        <button className="btn btn-primary" onClick={handleBooking}>Book now</button>
+        {isloggedIn ? (
+          <div>
+            <DatePicker aria-required={"true"}
+              className="m-2"
+              format="DD-MM-YYYY"
+              onChange={(date) => {
+                console.log(date)
+                const formattedDate = moment(date.$d).format("DD-MM-YYYY");
+                console.log(formattedDate)
+                setDate(formattedDate);
+              }} />
+            <button className="btn btn-primary">Check Availability</button>
+            <button className="btn btn-primary" onClick={handleBooking}>Book now</button>
+          </div>
+        ) : (
+          <h3>Login to book the doctor...</h3>
+        )}
+
       </div>
       <Footer />
     </div>

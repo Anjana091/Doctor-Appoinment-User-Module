@@ -8,7 +8,6 @@ function Navbar() {
 	const navigate = useNavigate();
 	const navRef = useRef();
 	const isLoggedIn = localStorage.getItem("loggedIn")
-	console.log(isLoggedIn)
 	const showNavbar = () => {
 		navRef.current.classList.toggle(
 			"responsive_nav"
