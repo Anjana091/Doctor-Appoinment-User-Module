@@ -5,6 +5,13 @@ import { useParams } from "react-router-dom";
 import { DatePicker } from "antd";
 import moment from "moment";
 import Footer from "./Footer"
+import Card from '@mui/material/Card';
+import CardActions from '@mui/material/CardActions';
+import CardContent from '@mui/material/CardContent';
+import CardMedia from '@mui/material/CardMedia';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography'
+import user from "../assests/user.png"
 
 
 const DoctorCard = () => {
@@ -19,6 +26,7 @@ const DoctorCard = () => {
 
 
   const handleBooking = async (e) => {
+    const doctorNo=params.doctorNo
     e.preventDefault();
     try {
 
@@ -39,13 +47,14 @@ const DoctorCard = () => {
 
 
   useEffect(() => {
+    const doctorNo=params.doctorNo
     const fetchData = async () => {
       try {
 
         const response = await axios.post(
           'http://localhost:3001/doctor/getDoctorById',
           {
-            doctorNo: params.doctorNo
+            doctorNo: doctorNo
           }
         );
 
@@ -83,38 +92,67 @@ const DoctorCard = () => {
     <div>
       <Navbar />
       <div style={{
-        minHeight: "100vh"
+        minHeight: "80vh"
 
       }}>
-        <h3>hi</h3>
-        {doctor ? (
-          <div>
-            <h3>Doctor Name: {doctor.fullname}</h3>
 
-            {/* Display other doctor information as needed */}
-          </div>
-        ) : (
-          <h3>Loading doctor data...</h3>
-        )}
-        <h1>book now</h1>
-        {isloggedIn ? (
-          <div>
-            <DatePicker aria-required={"true"}
-              className="m-2"
-              format="DD-MM-YYYY"
-              onChange={(date) => {
-                console.log(date)
-                const formattedDate = moment(date.$d).format("DD-MM-YYYY");
-                console.log(formattedDate)
-                setDate(formattedDate);
-              }} />
-            <button className="btn btn-primary">Check Availability</button>
-            <button className="btn btn-primary" onClick={handleBooking}>Book now</button>
-          </div>
-        ) : (
-          <h3>Login to book the doctor...</h3>
-        )}
+        <Card sx={{ maxWidth: 500, margin: '10vh auto 10vh' }}>
+          <CardMedia
+            sx={{ height: 180 }}
+            image={user}
+            title="green iguana"
+          />
+          <CardContent>
+            <Typography gutterBottom variant="h5" component="div">
 
+              {doctor ? (
+                <div>
+                  <h3>Doctor Name: {doctor.fullname}</h3>
+                 
+                  {/* Display other doctor information as needed */}
+                </div>
+              ) : (
+                <h3>Loading doctor data...</h3>
+              )}
+            </Typography>
+            <Typography variant="body2" color="text.secondary">
+            {doctor ? (
+                <div>
+                <h3>Doctor No: {doctor.doctorNo}</h3>
+                <h3> Fullname: {doctor.fullname}</h3>
+                <h3>Specialty: {doctor.Specialty}</h3>
+                <h3>Qualification: {doctor.Qualification}</h3>
+                <h3>Experience: {doctor.Experience}</h3>
+                <h3>fee Per Session: {doctor.fees}₹</h3>
+              </div>
+                
+              ) : (
+                <h3>Loading doctor data...</h3>
+              )}
+              <h1>book now</h1>
+              {isloggedIn ? (
+                <div>
+                  <DatePicker aria-required={"true"}
+                    className="m-2"
+                    format="DD-MM-YYYY"
+                    onChange={(date) => {
+                      console.log(date)
+                      const formattedDate = moment(date.$d).format("DD-MM-YYYY");
+                      console.log(formattedDate)
+                      setDate(formattedDate);
+                    }} />
+                  <CardActions>
+                    <Button size="small">Check Availability</Button>
+                    <Button size="small" onClick={handleBooking}>Book now</Button>
+                  </CardActions>
+                </div>
+              ) : (
+                <h3>Login to book the doctor...</h3>
+              )}
+            </Typography>
+          </CardContent>
+
+        </Card>
       </div>
       <Footer />
     </div>
