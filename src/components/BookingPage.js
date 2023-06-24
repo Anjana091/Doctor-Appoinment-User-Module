@@ -12,6 +12,18 @@ const DoctorCard = () => {
   const [date,setDate] = useState()
   const [isAvailable,setIsAvailable]=useState()
 
+const handleBooking =async() =>{
+  try {
+    const res =axios.post('http://localhost:3001/patient/book-appointment',
+    {
+      doctorNo:params.doctorNo
+    })
+  } catch (error) {
+    console.log(error)
+  }
+}
+  
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -54,7 +66,7 @@ const DoctorCard = () => {
         <h1>book now</h1>
         <DatePicker format="DD-MM-YYYY" onChange={(value) => moment(value).format('DD-MM-YYYY')}/>
         <button className="btn btn-primary">Check Availability</button>
-        <button className="btn btn-primary">Book now</button>
+        <button className="btn btn-primary" onClick={handleBooking}>Book now</button>
       </div>
       <Footer />
     </div>

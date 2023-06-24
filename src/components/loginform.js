@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import "./loginform.css";
+import Navbar from "./NavBar";
+import Footer from "./Footer";
 
 function LoginForm(error) {
   const [mobileNo, setMobileNo] = useState("");
@@ -40,6 +42,8 @@ function LoginForm(error) {
 
 
   return (
+    <div>
+    <Navbar />
     <div className="loginPage">
       <div className="loginContainer">
         <h1>"Welcome Back!"</h1>
@@ -71,16 +75,17 @@ function LoginForm(error) {
         <div className="success">Login successful!</div>
       )}
           <div className="forgot-password-container">
-              <>
-                <a className="login-a" href="#">Forgot password?</a>
+              
                 <a className="login-a" href="/signUp" >
                   Create a new account
                 </a>
-              </>
+              
         
           </div>
         </form>
       </div>
+    </div>
+    <Footer />
     </div>
   );
 }

@@ -4,7 +4,7 @@
   justify-content: center;
   min-width: 100vw;
   min-height: 100vh;
-  background: linear-gradient(rgb(166, 159, 255), rgb(214, 214, 214));
+  background: linear-gradient(rgb(149, 176, 230), rgb(214, 214, 214));
 }
 
 .loginContainer {
@@ -34,7 +34,7 @@
   border-radius: 15px;
   border-width: 15px;
   border: none;
-  box-shadow: 0 0 6px rgb(166, 159, 255);
+  box-shadow: 0 0 6px rgb(180, 174, 197);
   outline: none;
   padding: 10px;
   font-size: 20px;
@@ -46,7 +46,7 @@ input:focus {
 }
 
 .login-a {
-  color: rgb(0, 68, 255);
+  color: rgb(110, 120, 146);
   font-weight: 500;
   margin: 5px;
   cursor: pointer;
@@ -76,7 +76,7 @@ input:focus {
   max-width: 100%;
   margin-top: 10px;
   border-radius: 15px;
-  background: linear-gradient(rgb(124, 114, 255), rgb(255, 116, 116));
+  background: linear-gradient(rgb(51, 46, 132), rgb(151, 166, 171));
   border: none;
   transition: all 0.2s ease-in-out;
 }

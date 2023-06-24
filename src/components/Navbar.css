@@ -46,6 +46,12 @@ nav {
 	align-items: center;
 }
 
+.Nav-login{
+	position: absolute;
+	top: 2rem;
+	right: 2rem;
+}
+
 @media only screen and (max-width: 600px) {
 	header .nav-btn {
 		visibility: visible;

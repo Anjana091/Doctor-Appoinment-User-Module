@@ -1,10 +1,14 @@
 import { useRef } from "react";
 import { FaBars, FaTimes } from "react-icons/fa";
 import './Navbar.css'
+import { useNavigate } from "react-router-dom";
 
 function Navbar() {
-	const navRef = useRef();
 
+	const navigate = useNavigate();
+	const navRef = useRef();
+	const isLoggedIn = localStorage.getItem("loggedIn")
+	console.log(isLoggedIn)
 	const showNavbar = () => {
 		navRef.current.classList.toggle(
 			"responsive_nav"
@@ -19,6 +23,20 @@ function Navbar() {
 				<a href="/doctors">Doctors</a>
 				<a href="/#">Blog</a>
 				<a href="/#">About me</a>
+				<div className="navbar">
+					{isLoggedIn ? (
+						<button className="Nav-login" onClick={() => {
+							localStorage.clear();
+							navigate('/')
+						}}>Logout</button>
+					) : (
+						<button className="Nav-login"
+							onClick={() => {
+								navigate('/')
+							}}
+						>Login</button>
+					)}
+				</div>
 				<button
 					className="nav-btn nav-close-btn"
 					onClick={showNavbar}>
