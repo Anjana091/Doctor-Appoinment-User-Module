@@ -168,10 +168,12 @@ const DoctorCard = () => {
                     className="m-2"
                     format="DD-MM-YYYY"
                     onChange={(date) => {
-                      console.log(date)
-                      const formattedDate = moment(date.$d).format("DD-MM-YYYY");
-                      console.log(formattedDate)
-                      setDate(formattedDate);
+                      if (date) {
+                        const formattedDate = moment(date.$d).format("DD-MM-YYYY");
+                        setDate(formattedDate);
+                      } else {
+                        setDate(null);
+                      }
                     }} />
                   <CardActions>
                     <Button size="small" onClick={handleAvailability}>Check Availability</Button>
