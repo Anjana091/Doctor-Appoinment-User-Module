@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Navbar from "./NavBar";
 import { useParams } from "react-router-dom";
-import { DatePicker } from "antd";
+import { DatePicker, message } from "antd";
 import moment from "moment";
 import Footer from "./Footer"
 import Card from '@mui/material/Card';
@@ -21,13 +21,17 @@ const DoctorCard = () => {
   const [patient, setPatientData] = useState(null);
   const params = useParams();
   const [doctor, setDoctorData] = useState(null);
-  const [date, setDate] = useState(new Date())
+  const [date, setDate] = useState(null)
   const [isAvailable, setIsAvailable] = useState()
 
 
   const handleBooking = async (e) => {
-    const doctorNo=params.doctorNo
     e.preventDefault();
+    const doctorNo = params.doctorNo
+    if (!date) {
+      return message.error("Date is Required")
+    }
+
     try {
 
       const res = axios.post('http://localhost:3001/patient/book-appointment',
@@ -46,8 +50,36 @@ const DoctorCard = () => {
   }
 
 
+  const handleAvailability = async (e) => {
+    e.preventDefault();
+    if (!date) {
+      return message.error("Date is Required")
+    }
+    try {
+      const res = await axios.post('http://localhost:3001/patient/booking-availbility',
+        {
+          doctorNo: params.doctorNo,
+          date: date,
+          tokenPerDay: doctor.tokenPerDay
+
+        })
+      if (res.data.success) {
+        setIsAvailable(true)
+        message.success(res.data.message)
+
+      } else {
+        setIsAvailable(false)
+        message.error(res.data.message)
+
+      }
+
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   useEffect(() => {
-    const doctorNo=params.doctorNo
+    const doctorNo = params.doctorNo
     const fetchData = async () => {
       try {
 
@@ -108,7 +140,7 @@ const DoctorCard = () => {
               {doctor ? (
                 <div>
                   <h3>Doctor Name: {doctor.fullname}</h3>
-                 
+
                   {/* Display other doctor information as needed */}
                 </div>
               ) : (
@@ -116,16 +148,16 @@ const DoctorCard = () => {
               )}
             </Typography>
             <Typography variant="body2" color="text.secondary">
-            {doctor ? (
+              {doctor ? (
                 <div>
-                <h3>Doctor No: {doctor.doctorNo}</h3>
-                <h3> Fullname: {doctor.fullname}</h3>
-                <h3>Specialty: {doctor.Specialty}</h3>
-                <h3>Qualification: {doctor.Qualification}</h3>
-                <h3>Experience: {doctor.Experience}</h3>
-                <h3>fee Per Session: {doctor.fees}₹</h3>
-              </div>
-                
+                  <h3>Doctor No: {doctor.doctorNo}</h3>
+                  <h3> Fullname: {doctor.fullname}</h3>
+                  <h3>Specialty: {doctor.Specialty}</h3>
+                  <h3>Qualification: {doctor.Qualification}</h3>
+                  <h3>Experience: {doctor.Experience}</h3>
+                  <h3>fee Per Session: {doctor.fees}₹</h3>
+                </div>
+
               ) : (
                 <h3>Loading doctor data...</h3>
               )}
@@ -142,12 +174,15 @@ const DoctorCard = () => {
                       setDate(formattedDate);
                     }} />
                   <CardActions>
-                    <Button size="small">Check Availability</Button>
-                    <Button size="small" onClick={handleBooking}>Book now</Button>
+                    <Button size="small" onClick={handleAvailability}>Check Availability</Button>
+                    {isAvailable ? (
+                      <Button size="small" onClick={handleBooking}>Book now</Button>
+                    ) : null}
                   </CardActions>
                 </div>
               ) : (
-                <h3>Login to book the doctor...</h3>
+                <a className="login-a" href="/" >
+                  Login to book the doctor...</a>
               )}
             </Typography>
           </CardContent>
