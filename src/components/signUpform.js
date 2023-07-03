@@ -33,7 +33,7 @@ function SignUpForm({ onClose }) {
             const res = await axios.post("http://localhost:3001/patient/register", patient);
             console.log(res);
             alert(res.data.message);
-            // onClose(); // Close the modal
+            onClose();
             navigate("/");
         } catch (error) {
             console.log(error);
@@ -56,6 +56,7 @@ function SignUpForm({ onClose }) {
                         <input
                             type="number"
                             name="PatientNo"
+                            min="0"
                             value={patient.PatientNo}
                             onChange={handleChangeHandler}
                             required />
@@ -65,6 +66,9 @@ function SignUpForm({ onClose }) {
                         <input
                             type="number"
                             name="mobileNo"
+                            min="0"
+                            pattern="[0-9]{10,}"
+                            title="Please enter a valid mobile number (minimum 10 digits)"
                             value={patient.mobileNo}
                             onChange={handleChangeHandler}
                             required />
@@ -84,6 +88,7 @@ function SignUpForm({ onClose }) {
                         <input
                             type="number"
                             name="age"
+                            min="0"
                             value={patient.age}
                             onChange={handleChangeHandler}
                             required />
