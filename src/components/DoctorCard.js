@@ -41,6 +41,9 @@ const DoctorCard = () => {
           <ListItem
             key={doctor.doctorNo}
             sx={{
+      
+              height :"130px",
+              margin:"10px 0px",
               backgroundColor: "#04619f",
               backgroundImage: "linear-gradient(147deg, #04619f 0%, #002D62 74%)",
               color: "white",

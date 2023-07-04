@@ -52,36 +52,40 @@ function LoginForm(error) {
         <form onSubmit={submitHandler}>
           <div className="input-container">
             <label>Mobile Number</label>
-            <input 
-            type="number" 
-            name="mobileNo" 
-            onChange={(e) => setMobileNo(e.target.value)}
-            required />
-          </div>  
-            <div className="input-container">
-              <label>Password</label>
-              <input 
-              type="password" 
-              name="pass" 
-              required 
+            <input
+              type="number"
+              name="mobileNo"
+              min="0"
+              pattern="[0-9]{10,}"
+              title="Please enter a valid mobile number (minimum 10 digits)"
+              onChange={(e) => setMobileNo(e.target.value)}
+              required
+            />
+          </div>
+          <div className="input-container">
+            <label>Password</label>
+            <input
+              type="password"
+              name="pass"
+              required
               onChange={(e) => setPassword(e.target.value)}
-              />
-            </div>
-            <div className="signin-container">
-              <button className="loginBut" type="submit">
-                Login
-              </button>
-            </div>
-            {loginSuccess && (
-        <div className="success">Login successful!</div>
-      )}
+            />
+          </div>
+          <div className="signin-container">
+            <button className="loginBut" type="submit">
+              Login
+            </button>
+          </div>
+          {loginSuccess && <div className="success">Login successful!</div>}
           <div className="forgot-password-container">
-              
-                <a className="login-a" href="/signUp" >
-                  Create a new account
-                </a>
-              
-        
+            <>
+              <a className="login-a" href="#">
+                Forgot password?
+              </a>
+              <a className="login-a" href="/signUp">
+                Create a new account
+              </a>
+            </>
           </div>
         </form>
       </div>
